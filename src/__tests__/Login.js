@@ -68,7 +68,6 @@ describe("Given that I am a user on login page", () => {
 
       const form = screen.getByTestId("form-employee");
 
-      // localStorage should be populated with form data
       Object.defineProperty(window, "localStorage", {
         value: {
           getItem: jest.fn(() => null),
@@ -77,7 +76,6 @@ describe("Given that I am a user on login page", () => {
         writable: true,
       });
 
-      // we have to mock navigation to test it
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
@@ -86,12 +84,7 @@ describe("Given that I am a user on login page", () => {
 
       const store = jest.fn();
 
-      const login = new Login({
-        document,
-        localStorage: window.localStorage,
-        onNavigate,
-        PREVIOUS_LOCATION,
-        store,
+      const login = new Login({ document, localStorage: window.localStorage, onNavigate, PREVIOUS_LOCATION, store,
       });
 
       const handleSubmit = jest.fn(login.handleSubmitEmployee);
@@ -100,9 +93,7 @@ describe("Given that I am a user on login page", () => {
       fireEvent.submit(form);
       expect(handleSubmit).toHaveBeenCalled();
       expect(window.localStorage.setItem).toHaveBeenCalled();
-      expect(window.localStorage.setItem).toHaveBeenCalledWith(
-        "user",
-        JSON.stringify({
+      expect(window.localStorage.setItem).toHaveBeenCalledWith( "user", JSON.stringify({
           type: "Employee",
           email: inputData.email,
           password: inputData.password,
@@ -180,7 +171,6 @@ describe("Given that I am a user on login page", () => {
 
       const form = screen.getByTestId("form-admin");
 
-      // localStorage should be populated with form data
       Object.defineProperty(window, "localStorage", {
         value: {
           getItem: jest.fn(() => null),
@@ -189,7 +179,6 @@ describe("Given that I am a user on login page", () => {
         writable: true,
       });
 
-      // we have to mock navigation to test it
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname });
       };
@@ -198,12 +187,7 @@ describe("Given that I am a user on login page", () => {
 
       const store = jest.fn();
 
-      const login = new Login({
-        document,
-        localStorage: window.localStorage,
-        onNavigate,
-        PREVIOUS_LOCATION,
-        store,
+      const login = new Login({ document, localStorage: window.localStorage, onNavigate, PREVIOUS_LOCATION, store,
       });
 
       const handleSubmit = jest.fn(login.handleSubmitAdmin);
@@ -212,9 +196,7 @@ describe("Given that I am a user on login page", () => {
       fireEvent.submit(form);
       expect(handleSubmit).toHaveBeenCalled();
       expect(window.localStorage.setItem).toHaveBeenCalled();
-      expect(window.localStorage.setItem).toHaveBeenCalledWith(
-        "user",
-        JSON.stringify({
+      expect(window.localStorage.setItem).toHaveBeenCalledWith( "user", JSON.stringify({
           type: "Admin",
           email: inputData.email,
           password: inputData.password,
